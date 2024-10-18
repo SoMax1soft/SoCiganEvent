@@ -31,7 +31,7 @@ public class VillagerListener implements Listener {
     private final Map<UUID, Boolean> rewardGiven = new ConcurrentHashMap<>();
 
 
-    private final long interactionCooldown = 3000; // 3 seconds
+    private final long interactionCooldown = 3000;
     private final Map<UUID, Boolean> playerCoinStatus = new ConcurrentHashMap<>();
     private volatile boolean isCoinTaken = false;
     private final Map<UUID, Boolean> dropMessageSent = new ConcurrentHashMap<>();
@@ -107,7 +107,7 @@ public class VillagerListener implements Listener {
                                             if (!rewardGiven.getOrDefault(playerUUID, false)) {
                                                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), config.getString("Villager.RewardCommand").replace("%player%", player.getName()));
                                                 rewardGiven.put(playerUUID, true);
-                                                Bukkit.getScheduler().runTaskLater(plugin, () -> rewardGiven.put(playerUUID, false), 20L); // 20L = 1 секунда
+                                                Bukkit.getScheduler().runTaskLater(plugin, () -> rewardGiven.put(playerUUID, false), 20L);
                                             }
                                         }
                                     } else {
@@ -130,7 +130,7 @@ public class VillagerListener implements Listener {
                                 }
                             }
                         }
-                    }.runTaskTimer(plugin, 0, 20L); // 20L = 1 секунда
+                    }.runTaskTimer(plugin, 0, 20L);
                 }
             }
         }
@@ -162,8 +162,8 @@ public class VillagerListener implements Listener {
                     playerCoinStatus.put(playerUUID, false);
                     isCoinTaken = false;
 
-                    // Set a cooldown for the player after they drop the coin
-                    new CooldownTask(playerUUID).runTaskLater(plugin, 60L); // 60L = 3 секунды
+
+                    new CooldownTask(playerUUID).runTaskLater(plugin, 60L);
                 }
             }
         }
@@ -182,7 +182,7 @@ public class VillagerListener implements Listener {
         UUID playerUUID = player.getUniqueId();
         ItemStack emerald = null;
 
-        // Attempt to find the emerald in the player's drops
+
         for (ItemStack item : event.getDrops()) {
             if (item != null && item.hasItemMeta()) {
                 ItemMeta meta = item.getItemMeta();
@@ -193,20 +193,20 @@ public class VillagerListener implements Listener {
             }
         }
 
-        // If emerald is found, handle it
-        if (emerald != null) {
-            event.getDrops().remove(emerald); // Remove from drops
-            player.getInventory().remove(emerald); // Remove from inventory
 
-            // Notify nearby players about the dropped coin
+        if (emerald != null) {
+            event.getDrops().remove(emerald);
+            player.getInventory().remove(emerald);
+
+
             sendMessageToNearbyPlayers(player.getLocation(), ChatColor.translateAlternateColorCodes('&',
                     config.getString("Messages.State").replace("%player%", player.getName()).replace("%state%", "умер")));
 
-            // Clear the player's coin status
+
             playerCoinStatus.put(playerUUID, false);
             isCoinTaken = false;
 
-            // Attempt to put the emerald back into the villager's hand
+
             if (villager != null) {
                 if (villager.getEquipment() != null) {
                     villager.getEquipment().setItemInMainHand(emerald);
@@ -279,7 +279,7 @@ public class VillagerListener implements Listener {
         UUID playerUUID = player.getUniqueId();
         ItemStack emerald = null;
 
-        // Attempt to find the emerald in the player's inventory
+
         for (ItemStack item : player.getInventory().getContents()) {
             if (item != null && item.hasItemMeta()) {
                 ItemMeta meta = item.getItemMeta();
@@ -290,7 +290,7 @@ public class VillagerListener implements Listener {
             }
         }
 
-        // If emerald is found, remove it from player's inventory
+
         if (emerald != null) {
             player.getInventory().remove(emerald);
             sendMessageToNearbyPlayers(player.getLocation(), ChatColor.translateAlternateColorCodes('&',
@@ -329,7 +329,7 @@ public class VillagerListener implements Listener {
     }
 
     private void sendMessageToNearbyPlayers(Location location, String message) {
-        int radius = 100; // Радиус в блоках
+        int radius = 100;
         for (Player player : location.getWorld().getPlayers()) {
             if (player.getLocation().distance(location) <= radius) {
                 player.sendMessage(message);

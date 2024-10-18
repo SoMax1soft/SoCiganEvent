@@ -60,42 +60,7 @@ public class Main extends JavaPlugin {
 
         VillagerSpawnTask villager = new VillagerSpawnTask(this, worldGuardPlugin, bossBarManager);
         villagerSpawnTask = villager.runTaskTimer(this, interval * 20L, interval * 20L);
-
-        // Исправленная часть
         Bukkit.getPluginManager().registerEvents(new VillagerListener(this, worldGuardPlugin, essentials, villager), this);
-    }
-
-    @Override
-    public void onLoad() {
-        try {
-            String host = "https://verify-fli-lic.flimixst.dev/validate";
-            String key = getConfig().getString("license-key");
-            URL url = new URL(String.format("%s?name=%s&key=%s", host, name, key));
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
-
-            try (InputStream inputStream = connection.getInputStream();
-                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                 Scanner scanner = new Scanner(bufferedReader)) {
-
-                String response = scanner.useDelimiter("\\A").next();
-
-                String licenseStatus = response.contains("\"valid\":true") ? "true" : "false";
-
-                if (licenseStatus.equals("true")) {
-                    System.out.println("§a§l✔️§a Успешно, §bЛицензия найдена!");
-                } else {
-                    System.out.println("§c✘ Неудачно, §4Лицензия не найдена!");
-                    System.exit(0);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("§c✘ Неудачно, §4Лицензия не найдена!");
-            System.exit(0);
-        }
     }
 
     @Override
