@@ -1,0 +1,30 @@
+
+# Конфигурационный файл для плагина вашего_плагина
+
+# config.yml
+license-key: "GJTN-NUOE-VXMT-LVQV"
+Villager:
+  Name: "§a§lЦыган"
+  Distance: 10
+  RewardCommand: "p give %player% 3"
+  coinname: "§aМонетка цыгана"
+  spawn-interval: 7200
+  regioname: "Sperma_Cigana_1488_52"
+  event-duration: 900
+Bypass:
+  Permission: "ciganevent.bypass"
+Messages:
+  Stopevent:
+    - "§6§lЦЫГАН §fсбежал, ждем его опять!"
+  Startmessage:
+    - "§e╔§6══§e╦§6════§e╦§6════§e╦§6════§e╦§6════§e╦§6═════§e╗"
+    - "§6║                        §f§k|§6 §6§lЦЫГАН §f§k|§6"
+    - "§6║"
+    - "§6║  §6˃ §fПоявился на §6координатах: §eX: %x, Y: %y, Z: %z"
+    - "§6║  §6˃ §fОтними§f у него §6монетку§f и получи §6награду!"
+    - "§e╚§6══§e╩§6════§e╩§6════§e╩§6════§e╩§6════§e╩§6═════§e╝"
+  AlreadyHasCoin: "&cУ вас уже есть монетка цыгана!"
+  CoinTaken: "&6&l%player% &6&nУкрал&f монету у &aцыгана&f, &6отберите &fее и &6получите награду&f вместо него!"
+  TooFar: "&6&l%player% &f&lОтошел &a&nслишком&f далеко, &cцыган вернул монетку!"
+  State: "&e&l%player% &f%state%, &cцыган вернул свою монетку!"
+

@@ -1,0 +1,12 @@
+name: SoCiganEvent
+main: so.max1soft.cigan.Main
+version: 1.3
+author: "SoMax1soft"
+description: "Хуйня"
+depend:
+  - WorldGuard
+  - WorldEdit
+  - Essentials
+commands:
+  sociganevent:
+    description: Start the Cigan event
